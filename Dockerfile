@@ -149,8 +149,7 @@ ADD https://raw.githubusercontent.com/docker-library/httpd/eaf4c70fb21f167f77e0c
 
 RUN chmod 554 /usr/local/bin/httpd-foreground \
     && mkdir -p /run/httpd /var/log/apache2 \
-    && chmod -R 774 /usr/local/apache2/logs/ \
-    && chmod -R 774 /run/httpd \
+    && chmod -R 774 /usr/local/apache2/logs /run/httpd \
     && sed -i "s/Listen 80/Listen 8080/" /usr/local/apache2/conf/httpd.conf \
     && ln -sf /dev/stdout /var/log/apache2/access.log \
     && ln -sf /dev/stderr /var/log/apache2/error.log
