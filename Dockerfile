@@ -141,9 +141,20 @@ RUN set -eux; \
     apk add --virtual .httpd-rundeps $runDeps; \
     apk del .build-deps
 
-COPY httpd-foreground /usr/local/bin/
-
-EXPOSE 80
-CMD ["httpd-foreground"]
+#COPY httpd-foreground /usr/local/bin/
+#get this from httpd repo instead
+ADD https://raw.githubusercontent.com/docker-library/httpd/eaf4c70fb21f167f77e0c9d4b6f8b8635b1cb4b6/2.4/alpine/httpd-foreground /usr/local/bin/
 
 # END httpd env setup and install
+
+RUN chmod 554 /usr/local/bin/httpd-foreground \
+    && mkdir -p /run/httpd /var/log/apache2 \
+    && chmod -R 774 /usr/local/apache2/logs/ \
+    && chmod -R 774 /run/httpd \
+    && sed -i "s/Listen 80/Listen 8080/" /usr/local/apache2/conf/httpd.conf \
+    && ln -sf /dev/stdout /var/log/apache2/access.log \
+    && ln -sf /dev/stderr /var/log/apache2/error.log
+
+EXPOSE 8080
+CMD ["httpd-foreground"]
+
