@@ -1,7 +1,5 @@
 FROM bcit/alpine:3.9
-LABEL maintainer="chriswood.ca@gmail.com"
-LABEL httpd_version="2.4.33"
-LABEL build_id="1567197042"
+<%= snippet('labels', binding) -%>
 
 # START httpd env setup and install from
 #   https://github.com/docker-library/httpd/blob/eaf4c70fb21f167f77e0c9d4b6f8b8635b1cb4b6/2.4/alpine/Dockerfile
@@ -20,7 +18,7 @@ RUN mkdir -p "$HTTPD_PREFIX" \
     && chown www-data:www-data "$HTTPD_PREFIX"
 WORKDIR $HTTPD_PREFIX
 
-ENV HTTPD_VERSION 2.4.33
+ENV HTTPD_VERSION <%= image.vars['httpd_version'] %>
 ENV HTTPD_SHA256 de02511859b00d17845b9abdd1f975d5ccb5d0b280c567da5bf2ad4b70846f05
 
 # https://httpd.apache.org/security/vulnerabilities_24.html

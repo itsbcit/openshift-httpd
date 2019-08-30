@@ -1,0 +1,10 @@
+---
+image_name: openshift-httpd
+labels:
+  maintainer: 'chriswood.ca@gmail.com'
+  httpd_version: '2.4.33'
+suffixes:
+  - '2.4.33'
+  - '2.4-latest'
+vars:
+  httpd_version: '2.4.33'
