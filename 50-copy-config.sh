@@ -12,13 +12,13 @@ if [ -d $config_path ]; then
     for f in $(find ${config_path} -maxdepth 1 -type f -name "*.conf");do
         case $(basename $f) in
             conf.d-*.conf)
-                cp -v $f $dest_path/conf.d/$(destfilename $f "conf.d")
+                cp -fv $f $dest_path/conf.d/$(destfilename $f "conf.d")
                 ;;
             vhost.d-*.conf)
-                cp -v $f $dest_path/vhost.d/$(destfilename $f "vhost.d")
+                cp -fv $f $dest_path/vhost.d/$(destfilename $f "vhost.d")
                 ;;
             *)
-                cp -v $f ${dest_path}/
+                cp -fv $f ${dest_path}/
                 ;;
         esac
     done
